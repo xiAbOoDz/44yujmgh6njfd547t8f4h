@@ -2,19 +2,19 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 
 client.on('ready', () => {
-    console.log(client.user.tag + ' Ready! (' + client.user.id + ') ' + client.guilds.get('428690920246870016').roles.find(r => r.name == '• Flix').id);
+    console.log(client.user.tag + ' Ready! (' + client.user.id + ')');
     client.user.setActivity("https://www.flix-host.com", {
         type: "WATCHING"
     });
-//     var flixRole = client.guilds.get('428690920246870016').roles.find(r => r.id == '');
-//     setInterval(() => {
-//         client.guilds.get('428690920246870016').members.filter(m => !m.user.bot && !m.roles.has(flixRole) && m.user.username.startsWith('!- Flix |')).forEach(m => {
-//             m.removeRole(flixRole);
-//         });
-//         client.guilds.get('428690920246870016').members.filter(m => !m.user.bot && m.roles.has(flixRole) && !m.user.username.startsWith('!- Flix |')).forEach(m => {
-//             m.addRole(flixRole);
-//         });
-//     }, 10000);
+    var flixRole = client.guilds.get('428690920246870016').roles.find(r => r.id == '495554932053901312');
+    setInterval(() => {
+        client.guilds.get('428690920246870016').members.filter(m => !m.user.bot && !m.roles.has(flixRole) && m.user.username.startsWith('!- Flix |')).forEach(m => {
+            m.removeRole(flixRole);
+        });
+        client.guilds.get('428690920246870016').members.filter(m => !m.user.bot && m.roles.has(flixRole) && !m.user.username.startsWith('!- Flix |')).forEach(m => {
+            m.addRole(flixRole);
+        });
+    }, 10000);
 });
 
 client.on('message', message => {
