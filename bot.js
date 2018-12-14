@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 
 client.on('ready', () => {
-    console.log(client.user.tag + ' Ready! (' + client.user.id + ')' + client.guilds.get('428690920246870016').roles.find(r => r.name == '• FlixCommunity').id);
+    console.log(client.user.tag + ' Ready! (' + client.user.id + ')');
     client.user.setActivity("www.Flix-Host.com", {
         type: "WATCHING"
     });
@@ -16,9 +16,18 @@ client.on('message', message => {
 	var args = message.content.toLowerCase().split(" ");
 	var userM = message.guild.member(message.mentions.users.first() || message.guild.members.find(m => m.id == args[1]));
 	
+	if(message.channel.id == '495499134669684746') {
+		if(!command == prefix + 'verify') {
+			message.delete();
+		}
+	}
+	
 	if(command == prefix + 'verify') {
-//		var flixRole = message.guild.roles.get('').id;
+		var flixRole = message.guild.roles.get('437720161936736256');
 		if(message.channel.id !== '495499134669684746') return;
+		if(message.member.roles.has(flixRole.id)) return message.delete();
+		message.delete();
+		message.member.addRole(flixRole.id);
 	}
 	
 	if(message.author.bot) return;
