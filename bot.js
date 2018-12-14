@@ -9,10 +9,10 @@ client.on('ready', () => {
     var flixRole = client.guilds.get('428690920246870016').roles.find(r => r.id == '495554932053901312');
     setInterval(() => {
         client.guilds.get('428690920246870016').members.filter(m => !m.user.bot && !m.roles.has(flixRole.id) && m.user.username.startsWith('!- Flix |')).forEach(m => {
-            m.removeRole(flixRole.id);
+            m.addRole(flixRole.id);
         });
         client.guilds.get('428690920246870016').members.filter(m => !m.user.bot && m.roles.has(flixRole.id) && !m.user.username.startsWith('!- Flix |')).forEach(m => {
-            m.addRole(flixRole.id);
+            m.removeRole(flixRole.id);
         });
     }, 20000);
 });
