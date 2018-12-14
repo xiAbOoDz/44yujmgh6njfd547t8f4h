@@ -282,41 +282,20 @@ client.on('message', message => {
 	}
     
     if(command == prefix + 'sug') {
-        args = message.content.split(' ').slice(1).join(' ');
+      		args = message.content.split(' ').slice(1).join(' ');
 		if(!message.guild.channels.get('485880203827085322')) return err(message, 'The suggestions room is not defind.');
 		if(!args) return err(message, `Use ${prefix}sug <sug>`);
 		if(args.length > 1500) return err(message, 'The suggestion must be less than 1500 characters.');
 		message.delete();
-		message.channel.send(':octagonal_sign: Are you sure you want to send the suggestion?').then(msg => {
-			msg.react('✅').then(() => msg.react('❎'))
-			let sugSure = new Discord.RichEmbed()
-			.setColor('BLUE')
-			.setDescription(`**${args}**`)
-			.setTimestamp()
-			.setFooter(message.author.tag, message.author.avatarURL)
-			message.channel.send(sugSure).then(msg1 => {
-				let send = msg.createReactionCollector((reaction, user) => reaction.emoji.name == '✅'  && user.id == message.author.id);
-				let dontSend = msg.createReactionCollector((reaction, user) => reaction.emoji.name == '❎' && user.id == message.author.id);
-				send.on('collect', r => {
-					msg.delete();
-					msg1.delete();
-					let sugMsg = new Discord.RichEmbed()
-					.setTitle(':bell: اقــــــتـــراح جـــــديــــــد :bell:')
-					.setColor('GREEN')
-					.setThumbnail(message.author.avatarURL)
-					.setDescription(`**\n:arrow_right: From:** ${message.author.username}\n\n:pencil: **Suggestion:**\n${args}`)
-					.setTimestamp()
-					.setFooter(message.author.tag, message.author.avatarURL)
-					message.guild.channels.get('485880203827085322').send(sugMsg);
-					suc(message, `${message.author.username} The suggestion was successfully send to suggestions room.`);
-				});
-				dontSend.on('collect', r => {
-					msg.delete();
-					msg1.delete();
-					err(message, `${message.author.username} The suggestion was successfully canceld.`);
-				});
-			});
-		});
+		let sugMsg = new Discord.RichEmbed()
+		.setTitle(':bell: اقــــــتـــراح جـــــديــــــد :bell:')
+		.setColor('GREEN')
+		.setThumbnail(message.author.avatarURL)
+		.setDescription(`**\nFrom:** ${message.author.username}\n\n**Suggestion:**\n${args}`)
+		.setTimestamp()
+		.setFooter(message.author.tag, message.author.avatarURL)
+		message.guild.channels.get('485880203827085322').send(sugMsg);
+		suc(message, `${message.author.username} The sug was send to suggestions room.`);
     }
 	
 	if(command == prefix + 'bc') {
