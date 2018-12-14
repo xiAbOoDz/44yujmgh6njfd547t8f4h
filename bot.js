@@ -409,8 +409,9 @@ client.on('message', message => {
 		if(!args[1]) args[1] = 100;
 		if(args[1] && isNaN(args[1])) return err(message, "Must be a number.");
 		if(args[1] > 100 || args[1] < 2) return err(message, "Choose number from 2 to 100.");
-		if(message.channel.messages.size <= 1) return err(message, "I cant find any message in this channel.");
-		message.channel.bulkDelete(args[1]).then(messages => {
+		if(message.channel.messages.size < 2) return err(message, "I cant find any message in this channel.");
+		message.delete()
+		await message.channel.bulkDelete(args[1]).then(messages => {
 			var suc = new Discord.RichEmbed()
     			.setAuthor(`Successfully delete ${messages.size} message.`, "https://media3.picsearch.com/is?yYyH6QeF4vRyybuH60KCypFS9-Hs1BdhfebbWj6OhyI&height=340")
 			.setColor('GREEN');
