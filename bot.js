@@ -31,11 +31,14 @@ client.on('message', message => {
 			const help = new Discord.RichEmbed()
 			.setAuthor(client.user.username, client.user.avatarURL)
 			.setColor('GREEN')
-			.addField(`(1) ${prefix}ban`, '`The role of the bot must be higher than the person to be banned and must have permission to ban members.`')
-			.addField(`(2) ${prefix}kick`, '`The role of the bot must be higher than the person to be kicked and must have permission to kick members.`')
-			.addField(`(3) ${prefix}role`, '`The role of bot must be higher than the role mentioned and must have permission to give the roles.`')
-			.addField(`(4) ${prefix}mute`, '`The mentioned member must not have the administrator\'s permission and must not be a bot and must not have already been mute.`')
-			.addField(`(5) ${prefix}unmute`, '`The mentioned member must have muted to unmute him.`')
+			.addField(`(1) ${prefix}bc`, '`The sender must have administrator permission to use broad cast command.`')
+			.addField(`(2) ${prefix}ban`, '`The role of the bot must be higher than the person to be banned and must have permission to ban members.`')
+			.addField(`(3) ${prefix}kick`, '`The role of the bot must be higher than the person to be kicked and must have permission to kick members.`')
+			.addField(`(4) ${prefix}clear`, '`The member must have manage messages permission.`')
+			.addField(`(5) ${prefix}role`, '`The role of bot must be higher than the role mentioned and must have permission to give the roles.`')
+			.addField(`(5) ${prefix}sug`, '`Send suggestion to suggestions room.`')
+			.addField(`(6) ${prefix}mute`, '`The mentioned member must not have the administrator\'s permission and must not be a bot and must not have already been mute.`')
+			.addField(`(7) ${prefix}unmute`, '`The mentioned member must have muted to unmute him.`')
 			.setTimestamp()
 			.setFooter(`Use ${prefix}help <command> for more informations.`, "https://media1.picsearch.com/is?6-_gwqS1fu7CGInI2gbrjFizd6p1YVcMfLWzrF66i2Y&height=289");
 			message.channel.send({
@@ -430,7 +433,7 @@ client.on('guildMemberUpdate', (om, nm) => {
 <#462816384083034114>
 لنرفع من مستوى الاستضافه .. وشكرا :heart:`)
                         .setTimestamp()
-                        .setFooter(om.tag, om.avatarURL);
+                        .setFooter(om.user.tag, om.user.avatarURL);
                         om.send({
                                 embed: thx
                         }).catch(err => om.guild.owner.send(`${om} مقفل خاصة`));
