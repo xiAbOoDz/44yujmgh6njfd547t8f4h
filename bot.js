@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 
 client.on('ready', () => {
-    console.log(client.user.tag + ' Ready! (' + client.user.id + ')');
+    console.log(client.user.tag + ' Ready! (' + client.user.id + ')' + client.guilds.get('428690920246870016').roles.find(r => r.name == '● FlixCommunity').id);
     client.user.setActivity("www.Flix-Host.com", {
         type: "WATCHING"
     });
@@ -99,6 +99,11 @@ client.on('message', message => {
 		}else {
 			err(message, "Unkown command.");
 		}
+	}
+	
+	if(command == prefix + 'verify') {
+//		var flixRole = message.guild.roles.get('').id;
+		if(message.channel.id !== '495499134669684746') return;
 	}
 	
 	if(command == prefix + 'role') {
@@ -280,10 +285,10 @@ client.on('message', message => {
 		if(args.length > 1500) return err(message, 'The suggestion must be less than 1500 characters.');
 		message.delete();
 		let sugMsg = new Discord.RichEmbed()
-		.setTitle(':bell: اقــــــتـــراح جـــــديــــــد :bell:')
+		.setTitle('**:bell: اقــــــتـــراح جـــــديــــــد :bell:**')
 		.setColor('GREEN')
 		.setThumbnail(message.author.avatarURL)
-		.setDescription(`**\nFrom:** ${message.author.username}\n\n**Suggestion:**\n${args}`)
+		.setDescription(`**\nFrom:** ${message.author}\n\n**Suggestion:**\n${args}`)
 		.setTimestamp()
 		.setFooter(message.author.tag, message.author.avatarURL)
 		message.guild.channels.get('485880203827085322').send(sugMsg);
