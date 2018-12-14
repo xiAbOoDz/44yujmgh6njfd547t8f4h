@@ -8,13 +8,13 @@ client.on('ready', () => {
     });
     var flixRole = client.guilds.get('428690920246870016').roles.find(r => r.id == '495554932053901312');
     setInterval(() => {
-        client.guilds.get('428690920246870016').members.filter(m => !m.user.bot && !m.roles.has(flixRole) && m.user.username.startsWith('!- Flix |')).forEach(m => {
-            m.removeRole(flixRole);
+        client.guilds.get('428690920246870016').members.filter(m => !m.user.bot && !m.roles.has(flixRole.id) && m.user.username.startsWith('!- Flix |')).forEach(m => {
+            m.removeRole(flixRole.id);
         });
-        client.guilds.get('428690920246870016').members.filter(m => !m.user.bot && m.roles.has(flixRole) && !m.user.username.startsWith('!- Flix |')).forEach(m => {
-            m.addRole(flixRole);
+        client.guilds.get('428690920246870016').members.filter(m => !m.user.bot && m.roles.has(flixRole.id) && !m.user.username.startsWith('!- Flix |')).forEach(m => {
+            m.addRole(flixRole.id);
         });
-    }, 10000);
+    }, 20000);
 });
 
 client.on('message', message => {
