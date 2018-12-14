@@ -6,15 +6,6 @@ client.on('ready', () => {
     client.user.setActivity("www.Flix-Host.com", {
         type: "WATCHING"
     });
-    var flixRole = client.guilds.get('428690920246870016').roles.find(r => r.id == '495554932053901312');
-    setInterval(() => {
-        client.guilds.get('428690920246870016').members.filter(m => !m.user.bot && !m.roles.has(flixRole) && m.user.username.startsWith('!- Flix |')).forEach(m => {
-            m.addRole(flixRole);
-        });
-        client.guilds.get('428690920246870016').members.filter(m => !m.user.bot && m.roles.has(flixRole) && !m.user.username.startsWith('!- Flix |')).forEach(m => {
-            m.removeRole(flixRole);
-        });
-    }, 20000);
 });
 
 client.on('message', message => {
@@ -24,7 +15,7 @@ client.on('message', message => {
 	var prefix = '$';
 	var command = message.content.toLowerCase().split(" ")[0];
 	var args = message.content.toLowerCase().split(" ");
-	var userM = message.guild.member(message.mentions.users.first() || message.guild.members.find(m => m.id === args[1]));
+	var userM = message.guild.member(message.mentions.users.first() || message.guild.members.find(m => m.id == args[1]));
 	
 	if(command == prefix + 'help') {
 		if(!args[1]) {
@@ -109,8 +100,6 @@ client.on('message', message => {
 			err(message, "Unkown command.");
 		}
 	}
-	
-	if(message.content == 'رابط') message.author.send('https://discord.gg/vK7Nash').catch(error => err(message, "You must open your DM for link."));
 	
 	if(command == prefix + 'role') {
 		if(!message.member.hasPermission('MANAGE_ROLES')) return;
