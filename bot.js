@@ -2,20 +2,26 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 
 client.on('ready', () => {
-    console.log(client.user.tag + ' Ready! (' + client.user.id + ')' + client.guilds.get('428690920246870016').roles.find(r => r.name == '● FlixCommunity').id);
+    console.log(client.user.tag + ' Ready! (' + client.user.id + ')' + client.guilds.get('428690920246870016').roles.find(r => r.name == '• FlixCommunity').id);
     client.user.setActivity("www.Flix-Host.com", {
         type: "WATCHING"
     });
 });
 
 client.on('message', message => {
-	if(message.author.bot) return;
-	if(message.channel.type === 'dm') return;
+	if(message.channel.type !== 'text') return;
 	
 	var prefix = '$';
 	var command = message.content.toLowerCase().split(" ")[0];
 	var args = message.content.toLowerCase().split(" ");
 	var userM = message.guild.member(message.mentions.users.first() || message.guild.members.find(m => m.id == args[1]));
+	
+	if(command == prefix + 'verify') {
+//		var flixRole = message.guild.roles.get('').id;
+		if(message.channel.id !== '495499134669684746') return;
+	}
+	
+	if(message.author.bot) return;
 	
 	if(command == prefix + 'help') {
 		if(!args[1]) {
@@ -99,11 +105,6 @@ client.on('message', message => {
 		}else {
 			err(message, "Unkown command.");
 		}
-	}
-	
-	if(command == prefix + 'verify') {
-//		var flixRole = message.guild.roles.get('').id;
-		if(message.channel.id !== '495499134669684746') return;
 	}
 	
 	if(command == prefix + 'role') {
