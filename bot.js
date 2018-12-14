@@ -41,9 +41,9 @@ client.on('message', message => {
 			.addField(`(3) ${prefix}kick`, '`The role of the bot must be higher than the person to be kicked and must have permission to kick members.`')
 			.addField(`(4) ${prefix}clear`, '`The member must have manage messages permission.`')
 			.addField(`(5) ${prefix}role`, '`The role of bot must be higher than the role mentioned and must have permission to give the roles.`')
-			.addField(`(5) ${prefix}sug`, '`Send suggestion to suggestions room.`')
-			.addField(`(6) ${prefix}mute`, '`The mentioned member must not have the administrator\'s permission and must not be a bot and must not have already been mute.`')
-			.addField(`(7) ${prefix}unmute`, '`The mentioned member must have muted to unmute him.`')
+			.addField(`(6) ${prefix}sug`, '`Send suggestion to suggestions room.`')
+			.addField(`(7) ${prefix}mute`, '`The mentioned member must not have the administrator\'s permission and must not be a bot and must not have already been mute.`')
+			.addField(`(8) ${prefix}unmute`, '`The mentioned member must have muted to unmute him.`')
 			.setTimestamp()
 			.setFooter(`Use ${prefix}help <command> for more informations.`, "https://media1.picsearch.com/is?6-_gwqS1fu7CGInI2gbrjFizd6p1YVcMfLWzrF66i2Y&height=289");
 			message.channel.send({
