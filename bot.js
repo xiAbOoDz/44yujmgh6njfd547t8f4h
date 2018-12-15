@@ -3,9 +3,7 @@ const client = new Discord.Client();
 
 client.on('ready', () => {
     console.log(client.user.tag + ' Ready! (' + client.user.id + ')');
-    client.user.setActivity("www.Flix-Host.com", {
-        type: "WATCHING"
-    });
+    client.user.setActivity("www.Flix-Host.com", "https://www.twitch.tv/unkown");
 });
 
 client.on('message', async message => {
@@ -316,7 +314,7 @@ client.on('message', async message => {
 			embed: timer
 		}).then(msg => {
 			message.guild.members.filter(m => !m.user.bot).forEach(m => {
-				m.send(argsBC.replace(/[user]/g, m)).catch(err => console.log(err));
+				m.send(argsBC.replace('[user]', m)).catch(err => console.log(err));
 			});
 			setTimeout(() => {
 				msg.edit({
