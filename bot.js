@@ -295,7 +295,7 @@ client.on('message', async message => {
 		.setTitle('**:bell: اقــــــتـــراح جـــــديــــــد :bell:**')
 		.setColor('GREEN')
 		.setThumbnail(message.author.avatarURL)
-		.setDescription(`**\nFrom:** ${message.author}\n\n**Suggestion:**\n${args}`)
+		.setDescription(`**➥ From:** ${message.author}\n\n**➥ Suggestion:**\n${args}`)
 		.setTimestamp()
 		.setFooter(message.author.tag, message.author.avatarURL)
 		message.guild.channels.get('485880203827085322').send(sugMsg);
