@@ -503,6 +503,13 @@ client.on('message', async message => {
 		});
 	}
 	
+	if(command == prefix + 'say') {
+		if(message.author.id !== '346629187504832513') return;
+		if(!args[1]) return message.delete();
+		args = message.content.split(' ').slice(1).join(' ');
+		message.channel.send(args);
+	}
+	
 	if(command == prefix + 'clear') {
 		if(!message.member.hasPermission('MANAGE_MESSAGES')) return;
 		if(!message.guild.member(client.user).hasPermission('EMBED_LINKS')) return message.channel.send(':no_entry: | I dont have Embed Links permission.');
