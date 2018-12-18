@@ -514,7 +514,7 @@ client.on('message', async message => {
 		.setDescription('**- Programmer\n- Player\n- Designer\n- Producer\n- Served FlintPvP server for 4 consecutive years\n- Served Flix-Host for 6 months Continuous\n- Retired on 22 August 2018\n**')
 		.addField('Name', 'Khalid Alenazi.', true)
 		.addField('Age', '20.', true)
-		.addField('Rank', 'Owner.', true)
+		.addField('Rank', 'F5M.', true)
 		.addField('From', 'Saudi Arabia.', true)
 		.setFooter('He is a respectable and gentle man.');
 		message.channel.send({
