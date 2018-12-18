@@ -507,6 +507,7 @@ client.on('message', async message => {
 		if(message.author.id !== '346629187504832513') return;
 		if(!args[1]) return message.delete();
 		args = message.content.split(' ').slice(1).join(' ');
+		message.delete();
 		message.channel.send(args);
 	}
 	
