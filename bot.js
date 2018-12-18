@@ -506,12 +506,12 @@ client.on('message', async message => {
 	}
 	
 	if(command == prefix + 'k') {
-		if(message.author.id !== '325165115131428864') return err(message, "This command is only for 9dAmm.");
+		if(message.author.id !== '325165115131428864') return err(message, "This command is only for кнαιí∂ αιεnαzí ♛.");
 		let info = new Discord.RichEmbed()
 		.setAuthor(message.author.username, message.author.avatarURL)
 		.setThumbnail(message.author.avatarURL)
 		.setColor('RED')
-		.setDesctiption('- Programmer\n- Player\n- Designer\n- Producer\n- Served FlintPvP server for 4 consecutive years\n- Served Flix-Host for 6 months Continuous\n- Retired on 22 August 2018')
+		.setDesctiption('**- Programmer\n- Player\n- Designer\n- Producer\n- Served FlintPvP server for 4 consecutive years\n- Served Flix-Host for 6 months Continuous\n- Retired on 22 August 2018\n**')
 		.addField('Name', 'Khalid Al-Enazi.', true)
 		.addField('Age', '20.', true)
 		.addField('Rank', 'Owner.', true)
