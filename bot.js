@@ -512,7 +512,7 @@ client.on('message', async message => {
 		.setThumbnail(message.author.avatarURL)
 		.setColor('RED')
 		.setDescription('**- Programmer\n- Player\n- Designer\n- Producer\n- Served FlintPvP server for 4 consecutive years\n- Served Flix-Host for 6 months Continuous\n- Retired on 22 August 2018\n**')
-		.addField('Name', 'Khalid Al-Enazi.', true)
+		.addField('Name', 'Khalid Alenazi.', true)
 		.addField('Age', '20.', true)
 		.addField('Rank', 'Owner.', true)
 		.addField('From', 'Saudi Arabia.', true)
