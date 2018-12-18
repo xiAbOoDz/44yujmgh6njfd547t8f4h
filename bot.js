@@ -366,7 +366,12 @@ client.on('message', async message => {
 			};
 			if(!args[2]) {
 				if(points[userM.user.id].points == 0) return err(message, `${userM.user.username} Not have any points.`);
-				suc(message, `${userM.user.username} have ${points[userM.user.id].points} points.`);
+				var userPoints = new Discord.RichEmbed()
+				.setColor('#d3c325')
+				.setAuthor(`${userM.user.username} have ${points[userM.user.id].points} points.`);
+				message.channel.send({
+					embed: userPoints
+				});
 			}else if(args[2] == 'reset') {
 				if(points[userM.user.id].points == 0) return err(message, `${userM.user.userbane} not have any points to reset it.`);
 				points[userM.user.id].points = 0;
