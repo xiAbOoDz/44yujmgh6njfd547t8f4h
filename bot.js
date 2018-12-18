@@ -6,6 +6,9 @@ client.on('ready', () => {
     client.user.setActivity("www.Flix-Host.com", "https://www.twitch.tv/unkown");
 });
 
+var cooldown = new Set();
+var points = {};
+
 client.on('message', async message => {
 	if(message.channel.type !== 'text') return;
 	
@@ -285,7 +288,7 @@ client.on('message', async message => {
 		}
 	}
     
-    if(command == prefix + 'sug') {
+	if(command == prefix + 'sug') {
       		args = message.content.split(' ').slice(1).join(' ');
 		if(!message.guild.channels.get('485880203827085322')) return err(message, 'The suggestions room is not defind.');
 		if(!args) return err(message, `Use ${prefix}sug <sug>`);
@@ -300,28 +303,106 @@ client.on('message', async message => {
 		.setFooter(message.author.tag, message.author.avatarURL)
 		message.guild.channels.get('485880203827085322').send(sugMsg);
 		suc(message, `${message.author.username} The sug was send to suggestions room.`);
-    }
+	}
 	
 	if(command == prefix + 'bc') {
-		if(!message.member.hasPermission('ADMINISTRATOR')) return;
- 		if(!message.guild.member(client.user).hasPermission('EMBED_LINKS')) return message.channel.send(':no_entry: | I dont have Embed Links permission.');
 		var argsBC = message.content.split(' ').slice(1).join(' ');
-		if(!argsBC) return err(message, "Type the message to send.");
+		var x = 0;
+		if(!message.member.hasPermission('ADMINISTRATOR')) return;
+		if(!message.guild.member(client.user).hasPermission('EMBED_LINKS')) return message.channel.send(':no_entry: | I dont have Embed Links permission.');
+		if(cooldown.has(message.guild.id)) return err(message, "You must wait half hour to use this command again.");
+		cooldown.add(message.guild.id);
+		if(!argsBC) return err(message, "Type the message to send it.");
+		message.delete();
+		
 		let timer = new Discord.RichEmbed()
 		.setTitle(`:timer: Please wait a few seconds ..`)
 		.setColor('#d3c325');
 		message.channel.send({
 			embed: timer
-		}).then(msg => {
+		}).then(message1 => {
 			message.guild.members.filter(m => !m.user.bot).forEach(m => {
-				m.send(argsBC.replace('[user]', m)).catch(err => console.log(err));
+				m.send(argsBC).catch(err => x++);
 			});
 			setTimeout(() => {
-				msg.edit({
-					embed: new Discord.RichEmbed().setAuthor(`Successfully sent the message to ${message.guild.members.filter(m => !m.user.bot).size}`, "https://media3.picsearch.com/is?yYyH6QeF4vRyybuH60KCypFS9-Hs1BdhfebbWj6OhyI&height=340").setColor('GREEN')
+				message1.edit({
+					embed: new Discord.RichEmbed().setAuthor(`Successfully send the message to ${message.guild.members.filter(m => !m.user.bot).size} member(s)`, "https://media3.picsearch.com/is?yYyH6QeF4vRyybuH60KCypFS9-Hs1BdhfebbWj6OhyI&height=340").setColor('GREEN')
 				});
 			}, 20000);
 		});
+		setTimeout(() => cooldown.delete(message.guild.id), 1800000);
+	}
+	
+	if(command == prefix + 'points') {
+		if(!message.guild.member(client.user).hasPermission('EMBED_LINKS')) return message.channel.send(':no_entry: | I dont have Embed Links permission.');
+		if(!args[1]) {
+			if(!points) return err(message, "Added some points.");
+			var members = Object.values(points);
+			var memb = members.filter(m => m.points >= 1);
+			if(memb.length == 0) return err(message, "Added some points.");
+			var x = 1;
+			let pointsTop = new Discord.RichEmbed()
+			.setAuthor(message.guild.name, message.guild.iconURL)
+			.setColor('GREEN')
+			.setDescription(memb.sort((second, first) => first.points > second.points).slice(0, 10).map(m => `**${x++}.** <@${m.id}> | ${m.points}`).join('\n'))
+			.setTimestamp()
+			.setFooter(`By request of ${message.author.username}`, message.author.avatarURL);
+			message.channel.send({
+				embed: pointsTop
+			});
+		}else if(args[1] == 'reset') {
+			if(!message.member.hasPermission('MANAGE_GUILD')) return err(message, "You dont have Manage Server permission.");
+			if(!points) return err(message, "No points to reset it.");
+			var members = Object.values(points);
+			var memb = members.filter(m => m.points >= 1);
+			if(memb.length == 0) return err(message, "No points to reset it.");
+			points = {};
+			suc(message, "Successfully reset all points.");
+		}else if(userM) {
+			if(!message.member.hasPermission('MANAGE_GUILD')) return err(message, "You dont have Manage Server permission.");
+			if(!points[userM.user.id]) points[userM.user.id] = {
+				points: 0,
+				id: userM.user.id
+			};
+			if(!args[2]) {
+				if(points[userM.user.id].points == 0) return err(message, `${userM.user.username} Not have any points.`);
+				suc(message, `${userM.user.username} have ${points[userM.user.id].points} points.`);
+			}else if(args[2] == 'reset') {
+				if(points[userM.user.id].points == 0) return err(message, `${userM.user.userbane} not have any points to reset it.`);
+				points[userM.user.id].points = 0;
+				suc(message, `Successfully reset ${userM.user.username} points.`);
+			}else if(args[2].startsWith('+')) {
+				args[2] = args[2].slice(1);
+				args[2] = parseInt(Math.floor(args[2]));
+				if(points[userM.user.id].points == 1000000) return err(message, `${userM.user.username} has reach the maximum of points.`);
+				if(!args[2]) return err(message, "Please type the number.");
+				if(isNaN(args[2])) return err(message, "The points must be a number.");
+				if(args[2] > 1000000) return err(message, "The maximum for add points 1million.");
+				if(args[2] < 1) return err(message, "The minimum for add points 1.");
+				if((points[userM.user.id].points + args[2]) > 1000000) args[2] = 1000000 - points[userM.user.id].points;
+				points[userM.user.id].points += args[2];
+				suc(message, `Successfully added ${args[2]} to ${userM.user.username} (${points[userM.user.id].points} Total).`);
+			}else if(args[2].startsWith('-')) {
+				args[2] = args[2].slice(1);
+				args[2] = parseInt(Math.floor(args[2]));
+				if(points[userM.user.id].points == 0) return err(message, `${userM.user.username} not have any points to remove.`);
+				if(!args[2]) return err(message, "Please type the number.");
+				if(isNaN(args[2])) return err(message, "The points must be a number.");
+				if(args[2] > 1000000) return err(message, "The maximum for remove points 1million.");
+				if(args[2] < 1) return err(message, "The minimum for remove points 1.");
+				if((points[userM.user.id].points - args[2]) < 0) args[2] = points[userM.user.id].points;
+				points[userM.user.id].points -= args[2];
+				suc(message, `Successfully remove ${args[2]} from ${userM.user.username} (${points[userM.user.id].points} Total).`);
+			}else if(!args[2].startsWith('+') || !args[2].startsWith('-')) {
+				args[2] = parseInt(Math.floor(args[2]));
+				if(isNaN(args[2])) return err(message, "The points must be a number.");
+				if(args[2] > 1000000) return err(message, "The miximum of points 1million.");
+				if(args[2] < 1) return err(message, "The minimum of points 1.");
+				if(points[userM.user.id].points == args[2]) return err(message, `${userM.user.username} points is already ${args[2]}.`);
+				points[userM.user.id].points = args[2];
+				suc(message, `Successfully set the points for ${userM.user.username} to ${args[2]}`);
+			}else err(message, `Use ${prefix}help for more informations.`);
+		}else err(message, `Use ${prefix}help for more informations.`);
 	}
 	
 	if(command == prefix + 'ban') {
