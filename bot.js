@@ -42,6 +42,7 @@ client.on('message', async message => {
 			.addField(`(3) ${prefix}kick`, '`The role of the bot must be higher than the person to be kicked and must have permission to kick members.`')
 			.addField(`(4) ${prefix}clear`, '`The member must have manage messages permission.`')
 			.addField(`(5) ${prefix}role`, '`The role of bot must be higher than the role mentioned and must have permission to give the roles.`')
+			.addField(`(6) ${prefix}points`, '`The member must have Manage Server to use this command.`')
 			.addField(`(6) ${prefix}sug`, '`Send suggestion to suggestions room.`')
 			.addField(`(7) ${prefix}mute`, '`The mentioned member must not have the administrator\'s permission and must not be a bot and must not have already been mute.`')
 			.addField(`(8) ${prefix}unmute`, '`The mentioned member must have muted to unmute him.`')
@@ -66,6 +67,22 @@ client.on('message', async message => {
 			.setFooter(message.author.tag, message.author.avatarURL);
 			message.channel.send({
 				embed: role
+			});
+		}else if(args[1] == 'points') {
+			var points = new Discord.RichEmbed()
+			.setTitle(':white_check_mark: Points Command.')
+			.setColor('GREEN')
+			.setDescription('The member must have Manage Server to use this command.')
+			.addField(`${prefix}points`, '`Show top 10 points.`')
+			.addField(`${prefix}points reset`, '`Reset all points.`')
+			.addField(`${prefix}points @User +1`, '`Add to user points, you can add more.`')
+			.addField(`${prefix}points @User -1`, '`Remove from user points, you can remove more.`')
+			.addField(`${prefix}points @User 1`, '`Sets points for user.`')
+			.addField(`${prefix}points @User reset`, '`Reset user points.`')
+			.setTimestamp()
+			.setFooter(message.author.tag, message.author.avatarURL);
+			message.channel.send({
+				embed: points
 			});
 		}else if(args[1] == 'ban') {
 			const ban = new Discord.RichEmbed()
