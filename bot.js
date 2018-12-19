@@ -447,42 +447,32 @@ client.on('message', async message => {
 		if(!message.member.hasPermission('ADMINISTRATOR')) return;
 		if(!message.guild.member(client.user).hasPermission('EMBED_LINKS')) return message.channel.send(':no_entry: | I dont have Embed Links permission.');
 		if(!message.guild.member(client.user).hasPermission('BAN_MEMBERS')) return err(message, "I dont have Ban Members permission.");
-		var banSize = 0;
-		message.channel.send('`Are you sure you want unban all? You have 10sec type (yes) or (no).`').then(msg => {
-			var filter = message.channel.awaitMessages(m => m.id == message.author.id && m.content == 'yes' || m.content == 'no', { max: 1, time: 10000, errors: ['time'] });
-			filter.then(mesg => {
-				if(mesg.first().content == 'yes') {
+		message.guild.fetchBans().then(bans => {
+			if(bans.size < 1) return err(message, "No bans found.");
+			var x = 0;
+			message.channel.send(`Are you sure to unban ${bans.size} ban(s)? You have 10sec.`).then(msg => {
+				msg.react('✅');
+				var collected = msg.createReactionCollector((reaction, user) => reaction.emoji.name == '✅' && user.id == message.author.id, {
+					time: 10000
+				});
+				collected.on('collect', r => {
 					msg.delete();
-					mesg.first().delete();
+					x = bans.size;
 					let timer = new Discord.RichEmbed()
 					.setTitle(`:timer: Please wait a few seconds ..`)
 					.setColor('#d3c325');
 					message.channel.send({
 						embed: timer
-					}).then(msgs => {
-						message.guild.fetchBans().then(ban => {
-							if(ban.size < 1) {
-								err(message, "No bans found.");
-								return;
-							}
-							banSize = ban.size;
-							ban.forEach(bans => message.guild.unban(bans));
-						});
-						setTimeout(() => msgs.edit({
-							embed: new Discord.RichEmbed().setAuthor(`Successfully unbanned ${banSize} ban(s).`, "").setColor('GREEN')
-						}), 20000);
+					}).then(msg => {
+						bans.forEach(ban => message.guild.unban(ban));
+						setTimeout(() => msg.edit({
+							embed: new Discord.RichEmbed().setAuthor(`Successfully unbanned ${x} ban(s).`, "https://media3.picsearch.com/is?yYyH6QeF4vRyybuH60KCypFS9-Hs1BdhfebbWj6OhyI&height=340").setColor('GREEN')
+						}), 20000)
 					});
-				}else if(mesg.first().content == 'no') {
+				});
+				collected.on('end', collected => {
 					msg.delete();
-					mesg.first().delete();
-					message.channel.send({
-						embed: new Discord.RichEmbed().setAuthor('Successfully canceled.', "https://tse1.mm.bing.net/th?id=OIP.J-y_zWr6CiYBywhxuhKOVAHaHa&pid=15.1&P=0&w=300&h=300").setColor('RED')
-					}).then(msg => msg.delete(1000));
-				}
-			});
-			filter.catch(err => {
-				msg.edit({
-					embed: new Discord.RichEmbed().setAuthor('Time was ended, try again.', "https://tse1.mm.bing.net/th?id=OIP.J-y_zWr6CiYBywhxuhKOVAHaHa&pid=15.1&P=0&w=300&h=300").setColor('RED')
+					err(message, "Time was ended, try again.");
 				});
 			});
 		});
