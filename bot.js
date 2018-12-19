@@ -26,7 +26,7 @@ client.on('message', async message => {
 	}
 	
 	if(message.channel.id == '495499134669684746') {
-		if(!message.channel.messages.get(message.id)) return;
+		if(command == prefix + 'verify') return;
 		message.delete();
 	}
 	
@@ -450,6 +450,7 @@ client.on('message', async message => {
 		message.guild.fetchBans().then(bans => {
 			if(bans.size < 1) return err(message, "No bans found.");
 			var x = 0;
+			var sendMessage = true;
 			message.channel.send(`Are you sure to unban ${bans.size} ban(s)? You have 10sec.`).then(msg => {
 				msg.react('✅');
 				var collected = msg.createReactionCollector((reaction, user) => reaction.emoji.name == '✅' && user.id == message.author.id, {
@@ -458,6 +459,7 @@ client.on('message', async message => {
 				collected.on('collect', r => {
 					msg.delete();
 					x = bans.size;
+					sendMessage = false;
 					let timer = new Discord.RichEmbed()
 					.setTitle(`:timer: Please wait a few seconds ..`)
 					.setColor('#d3c325');
@@ -467,12 +469,15 @@ client.on('message', async message => {
 						bans.forEach(ban => message.guild.unban(ban));
 						setTimeout(() => msg.edit({
 							embed: new Discord.RichEmbed().setAuthor(`Successfully unbanned ${x} ban(s).`, "https://media3.picsearch.com/is?yYyH6QeF4vRyybuH60KCypFS9-Hs1BdhfebbWj6OhyI&height=340").setColor('GREEN')
-						}), 20000)
+						}).then(msg => msg.delete(5000)), 20000)
 					});
 				});
 				collected.on('end', collected => {
+					if(sendMessage == 'false') return;
 					msg.delete();
-					err(message, "Time was ended, try again.");
+					message.channel.send({
+						embed: new Discord.RichEmbed().setAuthor('Time was ended, try again.', "https://tse1.mm.bing.net/th?id=OIP.J-y_zWr6CiYBywhxuhKOVAHaHa&pid=15.1&P=0&w=300&h=300").setColor('RED')
+					}).then(msg => msg.delete(2000))
 				});
 			});
 		});
