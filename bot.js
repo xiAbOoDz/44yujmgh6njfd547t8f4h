@@ -138,7 +138,7 @@ client.on('message', async message => {
         	if(!message.guild.member(client.user).hasPermission('EMBED_LINKS')) return message.channel.send(':no_entry: | I dont have Embed Links permission.');
 		if(!message.guild.member(client.user).hasPermission('MANAGE_ROLES')) return err(message, "I dont have Manage Roles permission.");
     		if(!args[1]) return err(message, `Use ${prefix}help for more inforamtions.`);
-		if(!userM && args[1] !== 'humans' && args[1] !== 'bots' && args[1] !== 'all') return err(message, `Use ${prefix}help for more inforamtions.`);
+		if(!userM && args[1] !== 'humans' && args[1] !== 'bots' && args[1] !== 'all') return err(message, `Use ${prefix}help role for more inforamtions.`);
 		if(userM) {
 			var argsRole = message.content.toLowerCase().split(' ').slice(2);
 		}else if(args[1] === 'humans' || args[1] === 'bots' || args[1] === 'all') {
@@ -158,7 +158,7 @@ client.on('message', async message => {
 				suc(message, `Successfully remove from ${userM.user.username} role ${getRole.name}`);
 			}
 		}else if(args[1] == 'humans') {
-			if(!args[2]) return err(message, `Use ${prefix}help for more inforamtions.`);
+			if(!args[2]) return err(message, `Use ${prefix}help role for more inforamtions.`);
 			if(args[2] === 'add') {
 				if(!args[3]) return err(message, "Unkown role.");
 				if(!getRole) return err(message, "Unkown role.");
@@ -205,7 +205,7 @@ client.on('message', async message => {
 						}, 15000)
 					});
 				});
-			}else err(message, `Use ${prefix}help for more informations.`);
+			}else err(message, `Use ${prefix}help role for more informations.`);
 		}else if(args[1] === 'bots') {
 			if(!args[2]) return err(message, `Use ${prefix}help for more inforamtions.`);
 			if(args[2] === 'add') {
@@ -254,7 +254,7 @@ client.on('message', async message => {
 						}, 10000)
 					});
 				});
-			}else err(message, `Use ${prefix}help for more informations.`);
+			}else err(message, `Use ${prefix}help role for more informations.`);
 		}else if(args[1] === 'all') {
 			if(!args[2]) return err(message, `Use ${prefix}help for more inforamtions.`);
 			if(args[2] === 'add') {
@@ -301,7 +301,7 @@ client.on('message', async message => {
 						}, 20000)
 					});
 				});
-			}else err(message, `Use ${prefix}help for more informations.`);
+			}else err(message, `Use ${prefix}help role for more informations.`);
 		}
 	}
     
