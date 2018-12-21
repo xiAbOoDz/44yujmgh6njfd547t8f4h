@@ -7,6 +7,7 @@ client.on('ready', () => {
 });
 
 var cooldown = new Set();
+var sugCd = new Set();
 var points = {};
 
 client.on('message', async message => {
@@ -31,6 +32,12 @@ client.on('message', async message => {
 	}
 	
 	if(message.author.bot) return;
+	
+	if(message.channel.id == '509643348525711370' || message.channel.id == '525309739639504917' || message.channel.id == '525299537166991370' || message.channel.id == '525299459832414238') {
+		message.channel.send({
+			file: "https://cdn.discordapp.com/attachments/525299537166991370/525640447930925056/1212.png"
+		});
+	}
 	
 	if(command == prefix + 'help') {
 		if(!args[1]) {
@@ -304,12 +311,26 @@ client.on('message', async message => {
 			}else err(message, `Use ${prefix}help role for more informations.`);
 		}
 	}
+	
+	if(command == prefix + 'role') {
+		var sellerRole = message.guild.roles.get('524848329604202496');
+		var customerRole = message.guild.roles.get('525638239512559616');
+		if(!message.member.roles.has(sellerRole.id)) return;
+		if(!userM) return err(message, "Mention some one to add role.");
+		if(userM.user.bot) return err(message, "You cant add role 'S.Customer to bots.");
+		if(message.guild.member(userM.user).roles.has(customerRole.id)) return err(message, `${userM.user.username} already have role 'S.Customer.`);
+		if(userM.user.id == message.author.id) return err(message, "You cant add role 'S.Customer to yourself.");
+		message.guild.member(userM.user).addRole(customerRole.id);
+		suc(message, `Successfully give ${userM.user.username} role 'S.Customer`);
+	}
     
 	if(command == prefix + 'sug') {
       		args = message.content.split(' ').slice(1).join(' ');
 		if(!message.guild.channels.get('485880203827085322')) return err(message, 'The suggestions room is not defind.');
+		if(sugCd.has(message.author.id)) return err(message, "You must wait 5min to use this command again.");
 		if(!args) return err(message, `Use ${prefix}sug <sug>`);
 		if(args.length > 1500) return err(message, 'The suggestion must be less than 1500 characters.');
+		sugCd.add(message.author.id);
 		message.delete();
 		let sugMsg = new Discord.RichEmbed()
 		.setTitle('**:bell: اقــــــتـــراح جـــــديــــــد :bell:**')
@@ -320,6 +341,7 @@ client.on('message', async message => {
 		.setFooter(message.author.tag, message.author.avatarURL)
 		message.guild.channels.get('485880203827085322').send(sugMsg);
 		suc(message, `${message.author.username} The sug was send to suggestions room.`);
+		setTimeout(() => sugCd.delete(message.author.id), 300000);
 	}
 	
 	if(command == prefix + 'bc') {
