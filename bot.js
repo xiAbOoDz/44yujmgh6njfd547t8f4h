@@ -312,7 +312,7 @@ client.on('message', async message => {
 		}
 	}
 	
-	if(command == prefix + 'role') {
+	if(command == prefix + 'cus') {
 		var sellerRole = message.guild.roles.get('524848329604202496');
 		var customerRole = message.guild.roles.get('525638239512559616');
 		if(!message.member.roles.has(sellerRole.id)) return;
