@@ -312,13 +312,13 @@ client.on('message', async message => {
 		}
 	}
 	
-	if(command == prefix + 'cus') {
+	if(command == prefix + 'customer') {
 		var sellerRole = message.guild.roles.get('524848329604202496');
 		var customerRole = message.guild.roles.get('525638239512559616');
-		if(!message.member.roles.has(sellerRole.id)) return;
+		if(!message.member.roles.has(sellerRole)) return;
 		if(!userM) return err(message, "Mention some one to add role.");
 		if(userM.user.bot) return err(message, "You cant add role 'S.Customer to bots.");
-		if(message.guild.member(userM.user).roles.has(customerRole.id)) return err(message, `${userM.user.username} already have role 'S.Customer.`);
+		if(message.guild.member(userM.user).roles.has(customerRole)) return err(message, `${userM.user.username} already have role 'S.Customer.`);
 		if(userM.user.id == message.author.id) return err(message, "You cant add role 'S.Customer to yourself.");
 		message.guild.member(userM.user).addRole(customerRole.id);
 		suc(message, `Successfully give ${userM.user.username} role 'S.Customer`);
