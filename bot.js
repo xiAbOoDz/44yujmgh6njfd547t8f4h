@@ -33,7 +33,7 @@ client.on('message', async message => {
 	
 	if(message.author.bot) return;
 	
-	if(message.channel.id == '509643348525711370' || message.channel.id == '525309739639504917' || message.channel.id == '525299537166991370' || message.channel.id == '525299459832414238') {
+	if(message.channel.id == '509643348525711370' || message.channel.id == '525299537166991370' || message.channel.id == '525299459832414238') {
 		message.channel.send({
 			file: "https://cdn.discordapp.com/attachments/525299537166991370/525640447930925056/1212.png"
 		});
