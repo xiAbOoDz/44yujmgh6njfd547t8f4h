@@ -315,10 +315,12 @@ client.on('message', async message => {
 	if(command == prefix + 'customer') {
 		var sellerRole = message.guild.roles.get('524848329604202496');
 		var customerRole = message.guild.roles.get('525638239512559616');
-		if(!message.member.roles.has(sellerRole)) return;
+       		if(!message.guild.member(client.user).hasPermission('EMBED_LINKS')) return message.channel.send(':no_entry: | I dont have Embed Links permission.');
+		if(!message.guild.member(client.user).hasPermission('MANAGE_ROLES')) return err(message, "I dont have Manage Roles permission.");
+		if(!message.member.roles.has(sellerRole.id)) return err(message, "You dont have 'S.Seller role.");
 		if(!userM) return err(message, "Mention some one to add role.");
 		if(userM.user.bot) return err(message, "You cant add role 'S.Customer to bots.");
-		if(message.guild.member(userM.user).roles.has(customerRole)) return err(message, `${userM.user.username} already have role 'S.Customer.`);
+		if(message.guild.member(userM.user).roles.has(customerRole.id)) return err(message, `${userM.user.username} already have role 'S.Customer.`);
 		if(userM.user.id == message.author.id) return err(message, "You cant add role 'S.Customer to yourself.");
 		message.guild.member(userM.user).addRole(customerRole.id);
 		suc(message, `Successfully give ${userM.user.username} role 'S.Customer`);
