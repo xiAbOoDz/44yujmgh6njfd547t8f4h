@@ -12,26 +12,12 @@ var points = {};
 
 client.on('message', async message => {
 	if(message.channel.type !== 'text') return;
+	if(message.author.bot) return;
 	
 	var prefix = '$';
 	var command = message.content.toLowerCase().split(" ")[0];
 	var args = message.content.toLowerCase().split(" ");
 	var userM = message.guild.member(message.mentions.users.first() || message.guild.members.find(m => m.id == args[1]));
-	
-	if(command == prefix + 'verify') {
-		var flixRole = message.guild.roles.get('437720161936736256');
-		if(message.channel.id !== '495499134669684746') return;
-		if(message.member.roles.has(flixRole.id)) return message.delete();
-		message.delete();
-		message.member.addRole(flixRole.id);
-	}
-	
-	if(message.channel.id == '495499134669684746') {
-		if(command == prefix + 'verify') return;
-		message.delete();
-	}
-	
-	if(message.author.bot) return;
 	
 	if(message.channel.id == '509643348525711370' || message.channel.id == '525299537166991370' || message.channel.id == '525299459832414238') {
 		message.channel.send({
