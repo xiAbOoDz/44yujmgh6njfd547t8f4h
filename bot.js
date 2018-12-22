@@ -3,7 +3,10 @@ const client = new Discord.Client();
 
 client.on('ready', () => {
     console.log(client.user.tag + ' Ready! (' + client.user.id + ')');
-    client.user.setActivity("www.Flix-Host.com", "https://www.twitch.tv/unkown");
+    client.user.setActivity("www.Flix-Host.com", {
+	    type: "STREAMING",
+	    url: "https://www.twitch.tv/unkown"
+    });
 });
 
 var cooldown = new Set();
