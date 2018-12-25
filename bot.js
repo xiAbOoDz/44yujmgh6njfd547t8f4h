@@ -22,11 +22,11 @@ client.on('message', async message => {
 	var args = message.content.toLowerCase().split(" ");
 	var userM = message.guild.member(message.mentions.users.first() || message.guild.members.find(m => m.id == args[1]));
 	
-// 	if(message.channel.id == '509643348525711370' || message.channel.id == '525299537166991370' || message.channel.id == '525299459832414238') {
-// 		message.channel.send({
-// 			file: "https://cdn.discordapp.com/attachments/525299537166991370/525640447930925056/1212.png"
-// 		});
-// 	}
+	if(message.channel.id == '527143082626646019' || message.channel.id == '527143980131942401' || message.channel.id == '527144066391998475') {
+		message.channel.send({
+			file: "https://cdn.discordapp.com/attachments/525299537166991370/525640447930925056/1212.png"
+		});
+	}
 	
 	if(command == prefix + 'help') {
 		if(!args[1]) {
@@ -39,9 +39,7 @@ client.on('message', async message => {
 			.addField(`(4) ${prefix}clear`, '`The member must have manage messages permission.`')
 			.addField(`(5) ${prefix}role`, '`The role of bot must be higher than the role mentioned and must have permission to give the roles.`')
 			.addField(`(6) ${prefix}points`, '`The member must have Manage Server to use this command.`')
-			.addField(`(6) ${prefix}sug`, '`Send suggestion to suggestions room.`')
-			.addField(`(7) ${prefix}mute`, '`The mentioned member must not have the administrator\'s permission and must not be a bot and must not have already been mute.`')
-			.addField(`(8) ${prefix}unmute`, '`The mentioned member must have muted to unmute him.`')
+			.addField(`(7) ${prefix}sug`, '`Send suggestion to suggestions room.`')
 			.setTimestamp()
 			.setFooter(`Use ${prefix}help <command> for more informations.`, "https://media1.picsearch.com/is?6-_gwqS1fu7CGInI2gbrjFizd6p1YVcMfLWzrF66i2Y&height=289");
 			message.channel.send({
@@ -101,28 +99,6 @@ client.on('message', async message => {
 			.setFooter(message.author.tag, message.author.avatarURL);
 			message.channel.send({
 				embed: kick
-			});
-		}else if(args[1] == 'mute') {
-			const mute = new Discord.RichEmbed()
-			.setTitle(':white_check_mark: Mute Command.')
-			.setColor('GREEN')
-			.setDescription('The mentioned member must not have the administrator\'s permission and must not be a bot and must not have already been mute.\n')
-			.addField(`-mute <member>`, 'Muted member by id or mention.')
-			.setTimestamp()
-			.setFooter(message.author.tag, message.author.avatarURL);
-			message.channel.send({
-				embed: mute
-			});
-		}else if(args[1] == 'unmute') {
-			const unmute = new Discord.RichEmbed()
-			.setTitle(':white_check_mark: Unmute Command.')
-			.setColor('GREEN')
-			.setDescription('The mentioned member must have muted to unmute him.\n')
-			.addField(`-unmute <member>`, 'Unmuted member by id or mention.')
-			.setTimestamp()
-			.setFooter(message.author.tag, message.author.avatarURL);
-			message.channel.send({
-				embed: unmute
 			});
 		}else {
 			err(message, "Unkown command.");
@@ -301,19 +277,19 @@ client.on('message', async message => {
 		}
 	}
 	
-// 	if(command == prefix + 'customer') {
-// 		var sellerRole = message.guild.roles.get('524848329604202496');
-// 		var customerRole = message.guild.roles.get('525638239512559616');
-//        		if(!message.guild.member(client.user).hasPermission('EMBED_LINKS')) return message.channel.send(':no_entry: | I dont have Embed Links permission.');
-// 		if(!message.guild.member(client.user).hasPermission('MANAGE_ROLES')) return err(message, "I dont have Manage Roles permission.");
-// 		if(!message.member.roles.has(sellerRole.id)) return err(message, "You dont have 'S.Seller role.");
-// 		if(!userM) return err(message, "Mention some one to add role.");
-// 		if(userM.user.bot) return err(message, "You cant add role 'S.Customer to bots.");
-// 		if(message.guild.member(userM.user).roles.has(customerRole.id)) return err(message, `${userM.user.username} already have role 'S.Customer.`);
-// 		if(userM.user.id == message.author.id) return err(message, "You cant add role 'S.Customer to yourself.");
-// 		message.guild.member(userM.user).addRole(customerRole.id);
-// 		suc(message, `Successfully give ${userM.user.username} role 'S.Customer`);
-// 	}
+	if(command == prefix + 'customer') {
+		var sellerRole = message.guild.roles.get('527112858278953000');
+		var customerRole = message.guild.roles.get('527113170460999680');
+       		if(!message.guild.member(client.user).hasPermission('EMBED_LINKS')) return message.channel.send(':no_entry: | I dont have Embed Links permission.');
+		if(!message.guild.member(client.user).hasPermission('MANAGE_ROLES')) return err(message, "I dont have Manage Roles permission.");
+		if(!message.member.roles.has(sellerRole.id)) return err(message, "You dont have 'S.Seller role.");
+		if(!userM) return err(message, "Mention some one to add role.");
+		if(userM.user.bot) return err(message, "You cant add role 'S.Customer to bots.");
+		if(message.guild.member(userM.user).roles.has(customerRole.id)) return err(message, `${userM.user.username} already have role 'S.Customer.`);
+		if(userM.user.id == message.author.id) return err(message, "You cant add role 'S.Customer to yourself.");
+		message.guild.member(userM.user).addRole(customerRole.id);
+		suc(message, `Successfully give ${userM.user.username} role 'S.Customer`);
+	}
     
 	if(command == prefix + 'sug') {
       		args = message.content.split(' ').slice(1).join(' ');
@@ -494,34 +470,6 @@ client.on('message', async message => {
 				});
 			});
 		});
-	}
-	
-	if(command == prefix + 'mute') {
-		if(!message.member.hasPermission('BAN_MEMBERS')) return;
-		if(!message.guild.member(client.user).hasPermission('EMBED_LINKS')) return message.channel.send(':no_entry: | I dont have Embed Links permission.');
-		if(!message.guild.member(client.user).hasPermission('MANAGE_ROLES')) return err(message, "I dont have Manage Roles permission.");
-		if(!args[1]) return err(message, "Mention the member to give him mute.");
-		if(!userM) return err(message, "I cant find the member.");
-		if(userM.id == message.author.id) return err(message, "You cant give mute to yourself.");
-		if(userM.user.bot) return err(message, "You cant give mute to bot.");
-		if(message.guild.member(userM.user).hasPermission('ADMINISTRATOR')) return err(message, `I cant give to ${userM.user.username} mute.`);
-		var muteRole = message.guild.roles.find(r => r.name == 'Muted');
-		if(!muteRole) return err(message, "I cant find role with name Muted.");
-		if(message.guild.member(userM.user).roles.has(muteRole.id)) return err(message, `${userM.user.username} already muted.`);
-		message.guild.member(userM.user).addRole(muteRole.id);
-		suc(message, `Successfully give ${userM.user.username} Muted.`);
-	}
-	
-	if(command == prefix + 'unmute') {
-		if(!message.member.hasPermission('BAN_MEMBERS')) return;
-		if(!message.guild.member(client.user).hasPermission('EMBED_LINKS')) return message.channel.send(':no_entry: | I dont have Embed Links permission.');
-		if(!message.guild.member(client.user).hasPermission('MANAGE_ROLES')) return err(message, "I dont have Manage Roles permission.");
-		if(!args[1]) return err(message, "Mention the member to unmute him.");
-		if(!userM) return err(message, "I cant find the member.");
-		var muteRole = message.guild.roles.find(r => r.name == 'Muted');
-		if(!message.guild.member(userM.user).roles.has(muteRole.id)) return err(message, `${userM.user.username} is not muted.`);
-		message.guild.member(userM.user).removeRole(muteRole.id);
-		suc(message, `Successfully remove muted from ${userM.user.username}.`);
 	}
 	
 	if(command == prefix + 'kick') {
