@@ -22,11 +22,11 @@ client.on('message', async message => {
 	var args = message.content.toLowerCase().split(" ");
 	var userM = message.guild.member(message.mentions.users.first() || message.guild.members.find(m => m.id == args[1]));
 	
-	if(message.channel.id == '509643348525711370' || message.channel.id == '525299537166991370' || message.channel.id == '525299459832414238') {
-		message.channel.send({
-			file: "https://cdn.discordapp.com/attachments/525299537166991370/525640447930925056/1212.png"
-		});
-	}
+// 	if(message.channel.id == '509643348525711370' || message.channel.id == '525299537166991370' || message.channel.id == '525299459832414238') {
+// 		message.channel.send({
+// 			file: "https://cdn.discordapp.com/attachments/525299537166991370/525640447930925056/1212.png"
+// 		});
+// 	}
 	
 	if(command == prefix + 'help') {
 		if(!args[1]) {
@@ -301,23 +301,23 @@ client.on('message', async message => {
 		}
 	}
 	
-	if(command == prefix + 'customer') {
-		var sellerRole = message.guild.roles.get('524848329604202496');
-		var customerRole = message.guild.roles.get('525638239512559616');
-       		if(!message.guild.member(client.user).hasPermission('EMBED_LINKS')) return message.channel.send(':no_entry: | I dont have Embed Links permission.');
-		if(!message.guild.member(client.user).hasPermission('MANAGE_ROLES')) return err(message, "I dont have Manage Roles permission.");
-		if(!message.member.roles.has(sellerRole.id)) return err(message, "You dont have 'S.Seller role.");
-		if(!userM) return err(message, "Mention some one to add role.");
-		if(userM.user.bot) return err(message, "You cant add role 'S.Customer to bots.");
-		if(message.guild.member(userM.user).roles.has(customerRole.id)) return err(message, `${userM.user.username} already have role 'S.Customer.`);
-		if(userM.user.id == message.author.id) return err(message, "You cant add role 'S.Customer to yourself.");
-		message.guild.member(userM.user).addRole(customerRole.id);
-		suc(message, `Successfully give ${userM.user.username} role 'S.Customer`);
-	}
+// 	if(command == prefix + 'customer') {
+// 		var sellerRole = message.guild.roles.get('524848329604202496');
+// 		var customerRole = message.guild.roles.get('525638239512559616');
+//        		if(!message.guild.member(client.user).hasPermission('EMBED_LINKS')) return message.channel.send(':no_entry: | I dont have Embed Links permission.');
+// 		if(!message.guild.member(client.user).hasPermission('MANAGE_ROLES')) return err(message, "I dont have Manage Roles permission.");
+// 		if(!message.member.roles.has(sellerRole.id)) return err(message, "You dont have 'S.Seller role.");
+// 		if(!userM) return err(message, "Mention some one to add role.");
+// 		if(userM.user.bot) return err(message, "You cant add role 'S.Customer to bots.");
+// 		if(message.guild.member(userM.user).roles.has(customerRole.id)) return err(message, `${userM.user.username} already have role 'S.Customer.`);
+// 		if(userM.user.id == message.author.id) return err(message, "You cant add role 'S.Customer to yourself.");
+// 		message.guild.member(userM.user).addRole(customerRole.id);
+// 		suc(message, `Successfully give ${userM.user.username} role 'S.Customer`);
+// 	}
     
 	if(command == prefix + 'sug') {
       		args = message.content.split(' ').slice(1).join(' ');
-		if(!message.guild.channels.get('485880203827085322')) return err(message, 'The suggestions room is not defind.');
+		if(!message.guild.channels.get('527035069676912640')) return err(message, 'The suggestions room is not defind.');
 		if(sugCd.has(message.author.id)) return err(message, "You must wait 5min to use this command again.");
 		if(!args) return err(message, `Use ${prefix}sug <sug>`);
 		if(args.length > 1500) return err(message, 'The suggestion must be less than 1500 characters.');
@@ -330,7 +330,7 @@ client.on('message', async message => {
 		.setDescription(`**➥ From:** ${message.author}\n\n**➥ Suggestion:**\n${args}`)
 		.setTimestamp()
 		.setFooter(message.author.tag, message.author.avatarURL)
-		message.guild.channels.get('485880203827085322').send(sugMsg);
+		message.guild.channels.get('527035069676912640').send(sugMsg);
 		suc(message, `${message.author.username} The sug was send to suggestions room.`);
 		setTimeout(() => sugCd.delete(message.author.id), 300000);
 	}
@@ -614,7 +614,7 @@ client.on('guildMemberUpdate', (om, nm) => {
 اذا كان عندك مشكله بمنتجك الرجاء التوجه الى الدعم الفني .
 
 لا تنسى ان تقيمنا بروم
-<#462816384083034114>
+<#527034967511924736>
 لنرفع من مستوى الاستضافه .. وشكرا :heart:`)
                         .setTimestamp()
                         .setFooter(om.user.tag, om.user.avatarURL);
