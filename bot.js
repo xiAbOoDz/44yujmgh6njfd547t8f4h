@@ -24,7 +24,7 @@ client.on('message', async message => {
 	
 	if(message.channel.id == '527143082626646019' || message.channel.id == '527143980131942401' || message.channel.id == '527144066391998475') {
 		message.channel.send({
-			file: "https://cdn.discordapp.com/attachments/501365682844205057/527147728225042433/unknown.png"
+			file: "https://cdn.discordapp.com/attachments/501365682844205057/527163140765515796/image0.png"
 		});
 	}
 	
