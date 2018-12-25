@@ -5,7 +5,7 @@ client.on('ready', () => {
     console.log(client.user.tag + ' Ready! (' + client.user.id + ')');
     client.user.setActivity("www.Flix-Host.com", {
 	    type: "STREAMING",
-	    url: "https://www.twitch.tv/unkown"
+	    url: "https://www.twitch.tv/flixhost"
     });
 });
 
