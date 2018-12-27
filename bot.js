@@ -552,7 +552,7 @@ client.on('message', async message => {
 client.on('guildMemberUpdate', (om, nm) => {
         if(nm.roles.size > om.roles.size) {
                 let role = nm.roles.filter(r => !om.roles.has(r.id)).first();
-                if(role.id == om.guild.roles.find(r => r.name == 'Special Client').id || role.id == om.guild.roles.find(r => r.name == 'Client').id) {
+                if(role.id == om.guild.roles.find(r => r.name == '• Special Client').id || role.id == om.guild.roles.find(r => r.name == '• Client').id) {
                         let thx = new Discord.RichEmbed()
                         .setAuthor(om.guild.name, om.guild.iconURL)
                         .setColor('GREEN')
