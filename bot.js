@@ -530,23 +530,6 @@ client.on('message', async message => {
     			}).then(msg => msg.delete(2000));
 		});
 	}
-	
-	if(command == prefix + 'k') {
-		if(message.author.id !== '325165115131428864') return err(message, "This command is only for кнαιí∂ αιεnαzí ♛.");
-		let info = new Discord.RichEmbed()
-		.setAuthor(message.author.username, message.author.avatarURL)
-		.setThumbnail(message.author.avatarURL)
-		.setColor('RED')
-		.setDescription('**- Programmer\n- Player\n- Designer\n- Producer\n- Served FlintPvP server for 4 consecutive years\n- Served Flix-Host for 6 months Continuous\n- Retired on 22 August 2018\n**')
-		.addField('Name', 'Khalid Alenazi.', true)
-		.addField('Age', '20.', true)
-		.addField('Rank', 'F5M.', true)
-		.addField('From', 'Saudi Arabia.', true)
-		.setFooter('He is a respectable and gentle man.');
-		message.channel.send({
-			embed: info
-		});
-	}
 });
 
 client.on('guildMemberUpdate', (om, nm) => {
